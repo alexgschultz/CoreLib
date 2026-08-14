@@ -1,0 +1,11 @@
+# CMake
+build/
+install/
+
+# Visual Studio
+.vs/
+out/
+
+# Visual Studio user files
+*.user
+*.suo
