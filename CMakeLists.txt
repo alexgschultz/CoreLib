@@ -15,6 +15,7 @@ target_sources(CoreLib
 	PRIVATE
 		src/core.cpp
 		src/Logger.cpp
+		src/File.cpp
 )
 
 target_include_directories(CoreLib

@@ -9,3 +9,7 @@ out/
 # Visual Studio user files
 *.user
 *.suo
+
+# Test files
+test.txt
+test_directory/
