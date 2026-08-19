@@ -13,3 +13,4 @@ out/
 # Test files
 test.txt
 test_directory/
+config_saved.txt

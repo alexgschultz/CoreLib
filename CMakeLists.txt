@@ -16,6 +16,7 @@ target_sources(CoreLib
 		src/core.cpp
 		src/Logger.cpp
 		src/File.cpp
+		src/Config.cpp
 )
 
 target_include_directories(CoreLib

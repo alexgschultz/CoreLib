@@ -1,0 +1,8 @@
+# Configuração
+
+name = CoreLib
+
+author = Alex
+version = 1.0
+
+# Fim
