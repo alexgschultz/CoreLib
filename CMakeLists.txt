@@ -37,7 +37,7 @@ target_link_libraries(CoreLibTest
 )
 
 configure_package_config_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/cmake/CoreLibConfig.cmake.in
+	${CMAKE_CURRENT_SOURCE_DIR}/Cmake/CoreLibConfig.cmake.in
 	${CMAKE_CURRENT_BINARY_DIR}/CoreLibConfig.cmake
 	INSTALL_DESTINATION lib/cmake/CoreLib
 )
