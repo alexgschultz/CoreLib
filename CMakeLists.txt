@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.20)
 
 project(CoreLib)
 
+enable_testing()
+
 include(CMakePackageConfigHelpers)
 
 add_library(CoreLib)
@@ -36,8 +38,18 @@ target_link_libraries(CoreLibTest
 		CoreLib
 )
 
+add_test(
+	NAME CoreLibTest
+	COMMAND CoreLibTest
+)
+
+set_tests_properties(CoreLibTest
+    PROPERTIES
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
 configure_package_config_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/Cmake/CoreLibConfig.cmake.in
+	${CMAKE_CURRENT_SOURCE_DIR}/CMake/CoreLibConfig.cmake.in
 	${CMAKE_CURRENT_BINARY_DIR}/CoreLibConfig.cmake
 	INSTALL_DESTINATION lib/cmake/CoreLib
 )
