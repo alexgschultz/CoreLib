@@ -1,326 +1,152 @@
-**# CoreLib**
+# CoreLib
+
+**Version 1.0**
 
+[Português](README.pt-BR.md)
 
+CoreLib is a reusable C++ library developed as a study and portfolio project.
 
-**\*\*Version 1.0\*\***
+Its goal is to provide simple and reusable functionality for other C++ projects while keeping the architecture small and avoiding unnecessary complexity.
 
+## Features
 
+### Logger
 
-**Biblioteca C++ reutilizável desenvolvida como parte de um projeto de estudos e portfólio.**
+Simple logging system with multiple levels:
 
+- `Debug`
+- `Info`
+- `Warning`
+- `Error`
 
+It supports minimum log level filtering and timestamps.
 
-**O objetivo do CoreLib é fornecer funcionalidades básicas e reutilizáveis para outros projetos em C++, mantendo uma arquitetura simples e evitando complexidade desnecessária.**
+### File
 
+File and directory utilities based on `std::filesystem`.
 
+- Check whether a path exists
+- Check whether a path is a file
+- Check whether a path is a directory
+- Create files
+- Create directories
+- Remove files
+- Remove directories
 
-**## Funcionalidades**
+### Config
 
+Simple configuration system using files in the following format:
 
+```text
+key=value
+```
 
-**### Logger**
+Features:
 
+- Set values
+- Retrieve values
+- Check whether a key exists
+- Load configuration files
+- Save configuration files
+- Ignore empty lines
+- Support comments starting with `#`
+- Trim unnecessary whitespace
 
+Example:
 
-**Sistema simples de logging com diferentes níveis:**
+```text
+name=CoreLib
+author=Alex
+version=1.0
+```
 
+## Technologies
 
+- C++20
+- CMake
+- CTest
+- STL
+- `std::filesystem`
+- `std::map`
+- `std::optional`
+- `std::string_view`
+- `std::error_code`
+- Git
 
-**\* `Debug`**
+## Project Structure
 
-**\* `Info`**
+```text
+CoreLib/
+├── CMake/
+├── include/
+│   └── core/
+│       ├── Config.hpp
+│       ├── File.hpp
+│       ├── Logger.hpp
+│       └── core.hpp
+├── src/
+│   ├── Config.cpp
+│   ├── File.cpp
+│   ├── Logger.cpp
+│   └── core.cpp
+├── tests/
+│   └── CoreLibTest.cpp
+├── config.txt
+├── CMakeLists.txt
+└── .gitignore
+```
 
-**\* `Warning`**
+## Build
 
-**\* `Error`**
+The project uses CMake.
 
+Configure the project:
 
+```bash
+cmake -S . -B build
+```
 
-**Permite definir um nível mínimo de log e inclui timestamp nas mensagens.**
+Build the Debug configuration:
 
+```bash
+cmake --build build --config Debug
+```
 
+## Tests
 
-**### File**
+CoreLib uses CTest to execute its test program.
 
+Run:
 
+```bash
+ctest --test-dir build -C Debug --output-on-failure
+```
 
-**Funcionalidades para trabalhar com arquivos e diretórios utilizando `std::filesystem`.**
+A successful execution should report:
 
+```text
+100% tests passed out of 1
+```
 
+The test executable also uses an internal helper to compare actual and expected results:
 
-**\* Verificar se um caminho existe**
+```cpp
+check(config.has("missing"), false, "Config::has (chave inexistente)");
+```
 
-**\* Verificar se é um arquivo**
+## Project Goals
 
-**\* Verificar se é um diretório**
+CoreLib was developed to practice and consolidate C++ development concepts such as:
 
-**\* Criar arquivos**
+- Library organization
+- Separation between headers and implementation files
+- CMake
+- CTest
+- STL
+- File handling
+- Error handling
+- Testing
+- Code organization
+- Reusable components
 
-**\* Criar diretórios**
-
-**\* Remover arquivos**
-
-**\* Remover diretórios**
-
-
-
-**### Config**
-
-
-
-**Sistema simples de configuração baseado em arquivos no formato:**
-
-
-
-**```text**
-
-**key=value**
-
-**```**
-
-
-
-**Recursos:**
-
-
-
-**\* Definir valores**
-
-**\* Consultar valores**
-
-**\* Verificar existência de chaves**
-
-**\* Carregar configurações de arquivos**
-
-**\* Salvar configurações em arquivos**
-
-**\* Ignorar linhas vazias**
-
-**\* Suporte a comentários iniciados por `#`**
-
-**\* Remoção de espaços desnecessários**
-
-
-
-**Exemplo:**
-
-
-
-**```text**
-
-**name=CoreLib**
-
-**author=Alex**
-
-**version=1.0**
-
-**```**
-
-
-
-**## Tecnologias**
-
-
-
-**\* C++20/23**
-
-**\* CMake**
-
-**\* STL**
-
-**\* `std::filesystem`**
-
-**\* `std::map`**
-
-**\* `std::optional`**
-
-**\* `std::string\_view`**
-
-**\* `std::error\_code`**
-
-**\* Git**
-
-
-
-**## Estrutura**
-
-
-
-**```text**
-
-**CoreLib/**
-
-**├── CMakeLists.txt**
-
-**├── include/**
-
-**│   └── core/**
-
-**│       ├── Config.hpp**
-
-**│       ├── File.hpp**
-
-**│       └── Logger.hpp**
-
-**├── src/**
-
-**│   ├── Config.cpp**
-
-**│   ├── File.cpp**
-
-**│   └── Logger.cpp**
-
-**├── tests/**
-
-**│   └── CoreLibTest.cpp**
-
-**├── config.txt**
-
-**└── .gitignore**
-
-**```**
-
-
-
-**## Compilação**
-
-
-
-**O projeto utiliza CMake.**
-
-
-
-**Na raiz do projeto:**
-
-
-
-**```bash**
-
-**cmake -B build**
-
-**cmake --build build**
-
-**```**
-
-
-
-**No Windows, o executável de testes pode ser encontrado em:**
-
-
-
-**```text**
-
-**build/Debug/CoreLibTest.exe**
-
-**```**
-
-
-
-**Execute:**
-
-
-
-**```powershell**
-
-**.\\build\\Debug\\CoreLibTest.exe**
-
-**```**
-
-
-
-**## Testes**
-
-
-
-**O projeto possui um programa de testes próprio para verificar as funcionalidades da biblioteca.**
-
-
-
-**Os testes utilizam uma função auxiliar para comparar o resultado obtido com o resultado esperado:**
-
-
-
-**```cpp**
-
-**check(resultado, esperado, "Nome do teste");**
-
-**```**
-
-
-
-**Exemplo:**
-
-
-
-**```cpp**
-
-**check(config.has("missing"), false, "Config::has (chave inexistente)");**
-
-**```**
-
-
-
-**Uma execução bem-sucedida apresenta resultados como:**
-
-
-
-**```text**
-
-**--- File ---**
-
-**\[PASS] File::exists**
-
-**\[PASS] File::isFile**
-
-**\[PASS] File::isDirectory**
-
-**...**
-
-
-
-**--- Config ---**
-
-**\[PASS] Config::set**
-
-**\[PASS] Config::get**
-
-**\[PASS] Config::load**
-
-**\[PASS] Config::save**
-
-**```**
-
-
-
-**## Objetivo do projeto**
-
-
-
-**O CoreLib foi desenvolvido para praticar e consolidar conhecimentos de desenvolvimento em C++, incluindo:**
-
-
-
-**\* organização de bibliotecas**
-
-**\* separação entre `.hpp` e `.cpp`**
-
-**\* CMake**
-
-**\* STL**
-
-**\* manipulação de arquivos**
-
-**\* tratamento de erros**
-
-**\* testes**
-
-**\* organização de código**
-
-**\* reutilização de componentes**
-
-
-
-**A biblioteca continuará evoluindo conforme necessidades reais surgirem em projetos futuros.**
-
-
-
+The library may evolve when real reusable needs appear in future projects.
