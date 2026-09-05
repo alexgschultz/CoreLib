@@ -1,6 +1,7 @@
 #include <iostream>
 #include <windows.h>
 #include <string>
+#include <filesystem>
 #include <system_error>
 
 #include <core/Config.hpp>
@@ -54,10 +55,14 @@ void testFile()
 {
     std::cout << "\n--- File ---" << std::endl;
 
+    std::error_code error;
+    std::filesystem::remove("test.txt", error);
+    std::filesystem::remove_all("test_directory", error);
+
+    testFileCreate();
     testFileExists();
     testFileIsFile();
     testFileIsDirectory();
-    testFileCreate();
     testFileCreateDirectory();
     testFileRemove();
 }
@@ -82,24 +87,21 @@ void testFileIsDirectory()
 
 void testFileCreate()
 {
-    check(
-        core::createFile("test.txt"), false, "File::createFile (arquivo existente)");
+    check(core::createFile("test.txt"), true, "File::createFile");
+    check(core::createFile("test.txt"), false, "File::createFile (arquivo existente)");
 }
 
 void testFileCreateDirectory()
 {
-    check(
-        core::createDirectory("test_directory"), true, "File::createDirectory");
-
-    check(
-        core::createFile("test_directory/arquivo.txt"), true, "File::createFile (dentro do diretório)");
+    check(core::createDirectory("test_directory"), true, "File::createDirectory");
+    check(core::createFile("test_directory/arquivo.txt"), true, "File::createFile (dentro do diretório)");
 }
 
 void testFileRemove()
 {
     check(core::removeFile("test_directory/arquivo.txt"), true, "File::removeFile");
-
     check(core::removeDirectory("test_directory"), true, "File::removeDirectory");
+    check(core::removeFile("test.txt"), true, "File::removeFile (arquivo principal)");
 }
 
 void testConfig()
@@ -146,7 +148,6 @@ void testConfigHas()
     config.set("name", "CoreLib");
 
     check(config.has("name"), true, "Config::has");
-
     check(config.has("missing"), false, "Config::has (chave inexistente)");
 }
 
