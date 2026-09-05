@@ -27,6 +27,8 @@ void testConfigHas();
 void testConfigLoad();
 void testConfigSave();
 
+int failedTests = 0;
+
 int main()
 {   
     SetConsoleOutputCP(CP_UTF8);
@@ -36,7 +38,7 @@ int main()
     testConfig();
     testLogger();
 
-    return 0;
+    return (failedTests == 0) ? 0 : 1;
 }
 
 void check(bool result, bool expected, const std::string& testName)
@@ -46,7 +48,8 @@ void check(bool result, bool expected, const std::string& testName)
         std::cout << "[PASS] " << testName << std::endl;
     }
     else
-    {
+    {   
+        ++failedTests;
         std::cout << "[FAIL] " << testName << std::endl;
     }
 }
