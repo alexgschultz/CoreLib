@@ -1,5 +1,7 @@
 #include <iostream>
+#ifdef _WIN32
 #include <windows.h>
+#endif
 #include <string>
 #include <filesystem>
 #include <system_error>
@@ -31,8 +33,10 @@ int failedTests = 0;
 
 int main()
 {   
+#ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
+#endif
 
     testFile();
     testConfig();

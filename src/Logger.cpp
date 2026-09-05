@@ -24,7 +24,11 @@ namespace core
         const auto now = std::chrono::system_clock::now();
         const std::time_t time = std::chrono::system_clock::to_time_t(now);
         std::tm localTime{};
+#ifdef _WIN32
         localtime_s(&localTime, &time);
+#else
+        localtime_r(&time, &localTime);
+#endif
 
         std::cout << '[' << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S") << "] ";
 
