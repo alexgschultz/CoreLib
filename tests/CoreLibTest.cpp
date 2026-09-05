@@ -159,11 +159,12 @@ void testConfigLoad()
 
     check(loaded, true, "Config::load");
 
+    auto name = config.get("name");
     auto author = config.get("author");
     auto version = config.get("version");
 
+    check(name && *name == "CoreLib", true, "Config::load (name)");
     check(author && *author == "Alex", true, "Config::load (author)");
-
     check(version && *version == "1.0", true, "Config::load (version)");
 
     error.clear();

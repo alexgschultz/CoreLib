@@ -66,27 +66,22 @@ namespace core
         {
             line = trim(line);
 
-            while (std::getline(file, line))
+            if (line.empty() || line[0] == '#')
             {
-                line = trim(line);
+                continue;
+            }
 
-                if (line.empty() || line[0] == '#')
-                {
-                    continue;
-                }
+            auto position = line.find('=');
 
-                auto position = line.find('=');
+            if (position != std::string::npos)
+            {
+                std::string key = line.substr(0, position);
+                std::string value = line.substr(position + 1);
 
-                if (position != std::string::npos)
-                {
-                    std::string key = line.substr(0, position);
-                    std::string value = line.substr(position + 1);
+                key = trim(key);
+                value = trim(value);
 
-                    key = trim(key);
-                    value = trim(value);
-
-                    set(key, value);
-                }
+                set(key, value);
             }
         }
 
